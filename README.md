@@ -1,18 +1,18 @@
 # runtime-config-repair
 
-Intentionally broken DevOps Foundation Module 4 starter. No solved implementation or completed review answers are supplied. Diagnose and repair only the assessment tasks.
+TicketDesk receives incorrect runtime settings and includes a dummy credential in image configuration. Repair runtime injection and demonstrate one image serving two environments.
 
-## Preparation
+## Prerequisites
 
-Fork or clone https://github.com/kalviumcommunity/runtime-config-repair before assessment. Fork ownership is not graded. Use free local Docker Engine/Compose, Git and POSIX shell (Linux/macOS or prepared WSL). Docker Desktop subject to its license; Linux Docker Engine is sufficient. Pull python:3.12-slim before assessment. Reserve exercise ports only. Preparation/download delays excluded. No cloud account, billing, registry login, real credentials, paid tools or Kubernetes needed.
+Git, Docker Engine and POSIX shell (Linux/macOS or WSL with Docker integration). Compose v2 required for Compose commands; curl required for host HTTP checks. Docker must be running; internet access needed to download python:3.12-slim. Reserve documented host ports. Docker Desktop is subject to its license; Linux Docker Engine is sufficient. No cloud account, billing, registry login, real credentials, Kubernetes cluster or paid tools needed. Fork or clone this starter and run commands from repository root.
 
 ## Allowed edits
 
-runtime.env.example; Dockerfile (dummy ENV instruction only); run.sh (runtime token forwarding only); cloud-run.md; local ignored .env. Preserve all other source, routes, ports, fixtures and checks. No failure suppression or fabricated output. Existing run.sh tolerates absence of its old exercise container only; that cleanup is not an application-validation bypass.
+runtime.env.example; Dockerfile (dummy ENV instruction only); run.sh (runtime token forwarding only); cloud-run.md; local ignored .env. Preserve all other source, routes, ports, fixtures and checks. No failure suppression or fabricated output.
 
 ## Required behaviour and commands
 
-Copy runtime.env.example to ignored .env. The required initial runtime values are APP_MODE=production and LOG_LEVEL=INFO. Staging is supported for the second-environment test. APP_MODE is enforced by the app; LOG_LEVEL is checked by configuration inspection, not logging implementation. Correct both .env and the committed example; retain .env exclusion.
+Run `cp runtime.env.example .env` to create local ignored configuration. The required initial runtime values are APP_MODE=production and LOG_LEVEL=INFO. Staging is supported for the second-environment test. APP_MODE is enforced by the app; LOG_LEVEL is checked by configuration inspection, not logging implementation. Correct both .env and the committed example; retain .env exclusion.
 
 Build tag ticketdesk:lab, then use sh run.sh. Task 1 captures the original startup error, fixes configuration only and recreates without rebuilding. Compare running image IDs before/after; inspect only APP_MODE and LOG_LEVEL, startup log, /health and /config at localhost:18083.
 
@@ -29,7 +29,3 @@ curl -i http://localhost:18083/config
 git check-ignore .env
 ```
 Use presence-only Python checks for API_TOKEN. Cleanup: docker rm -f m4-q3.
-
-## Evidence and submission
-
-Follow assessment's three tasks. One PDF, three labelled task sections, at least one real terminal screenshot per task, requested findings and cause/fix/result captions. Include complete corrected diff of permitted files once. Show original failures and final checks only as requested by each task. Grade only those tasks and evidence (6 + 7 + 7 = 20). Repository/fork URLs, fork ownership, branch names and submission commit hashes are not required or graded. Technical image IDs remain required where tasks ask for them. Standalone instructor evidence is valid under the same technical criteria. Written findings are manually assessed; local evidence does not prove Cloud Run deployment. No PR, video or ZIP. Cleanup only exercise containers; never expose real credentials.
